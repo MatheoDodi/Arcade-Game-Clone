@@ -1,6 +1,15 @@
-frontend-nanodegree-arcade-game
+Udacity's Front End Nanodegree
+
+Alt-H1 Arcade Game Clone Project (aka Frogger Clone)
 ===============================
 
-Students should use this [rubric](https://review.udacity.com/#!/projects/2696458597/rubric) for self-checking their submission. Make sure the functions you write are **object-oriented** - either class functions (like Player and Enemy) or class prototype functions such as Enemy.prototype.checkCollisions, and that the keyword 'this' is used appropriately within your class and class prototype functions to refer to the object the function is called upon. Also be sure that the **readme.md** file is updated with your instructions on both how to 1. Run and 2. Play your arcade game.
+This is a project from Udacity's Nanodegree program "Front-End Web Developer". The project consists on a game based on the arcade game Frogger by Konami 
+Run Game
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+Click on "Clone or Download" on this repository page and download it as ZIP. Extract the folder content and open "index.html" from a brownser for the game to run.
+Game Rules
+
+The goal of the game is to reach the water side while avoiding getting hit by the bugs. When the player reaches the water side you pass to the next level where the difficult increases making the bugs move faster. If you get hit you loose and go back to the first level.
+Control
+
+Use the keyboard arrow keys to control the player movement direction.
