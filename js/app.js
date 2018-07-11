@@ -25,8 +25,7 @@ Enemy.prototype.collision= function() {
     var upHitbox = player.y - 25;
     var downHitbox = player.y + 25;
         if (this.x >= leftHitbox && this.x <= rightHitbox && this.y >= upHitbox && this.y <= downHitbox) {
-        player.x = 303;
-        player.y = 467;
+        player.reset();
     }
 }
 
@@ -42,9 +41,13 @@ var Player = function() {
 }
 
 Player.prototype.reset = function () {
+    this.x = 303;
+    this.y = 457;
+}
+
+Player.prototype.win = function () {
     if (this.y < 41) {
-        this.x = 303;
-        this.y = 457;
+        this.reset();
     }
 }
 
@@ -94,5 +97,4 @@ document.addEventListener('keyup', function(e) {
     };
 
     player.handleInput(allowedKeys[e.keyCode]);
-    player.reset();
 });

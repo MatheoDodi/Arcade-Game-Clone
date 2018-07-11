@@ -94,6 +94,7 @@ var Engine = (function(global) {
             enemy.update(dt);
             enemy.collision();
         });
+        player.win();
         player.update();
     }
 
