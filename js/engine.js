@@ -95,7 +95,6 @@ var Engine = (function(global) {
             enemy.collision();
         });
         player.win();
-        player.update();
     }
 
     /* This function initially draws the "game level", it will then call

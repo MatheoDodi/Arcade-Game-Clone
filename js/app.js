@@ -1,65 +1,70 @@
-// Enemies our player must avoid
+// constructor function that's going to create the instances of enemies
 var Enemy = function(x, y) {
-    this.x = x;// Variables applied to each of our instances go here,
-    this.y = y;// we've provided one for you to get started
-    this.speed = Math.floor(Math.random() * 201) + 120;
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
-    this.sprite = 'images/enemy-bug.png';
+    this.x = x; //starting position on the X-axis
+    this.y = y; //starting position on the Y-axis
+    this.speed = Math.floor(Math.random() * 201) + 120; // rng to differentiate the speed between different enemies 
+    this.image = 'images/enemy-bug.png'; //the image asset of the enemy
 };
 
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
+//update method that animates the movement of enemies and resets them to the start
 Enemy.prototype.update = function(dt) {
-    this.x = this.x + this.speed * dt// You should multiply any movement by the dt parameter
-    
+    this.x += this.speed * dt 
+
+//if enemy's position on X-axis exceeds the border of the canvas, it is set back to the starting position
     if (this.x > 707) {
         this.x = -100;
-        this.speed = Math.floor(Math.random() * 201) + 120;
+        this.speed = Math.floor(Math.random() * 201) + 120; //rng to diffentiate the speed of the resetted enemy
     }
 };
 
+//checks collision of player and enemy
 Enemy.prototype.collision= function() {
-    var leftHitbox = player.x - 50;
+    //setting the player's hitbox that is 100px wide and 50px tall
+    var leftHitbox = player.x - 50; 
     var rightHitbox = player.x + 50;
     var upHitbox = player.y - 25;
     var downHitbox = player.y + 25;
+    //checks to see if the enemy is inside the player's hitbox
         if (this.x >= leftHitbox && this.x <= rightHitbox && this.y >= upHitbox && this.y <= downHitbox) {
-        player.reset();
+        player.reset(); //reset's the location of the player at the starting point
     }
 }
 
-
+//draws the enemy
 Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    ctx.drawImage(Resources.get(this.image), this.x, this.y);
 };
 
+// constructor function that's going to create the instance of player
 var Player = function() {
-    this.sprite = 'images/char-boy.png'
-    this.x = 303;
-    this.y = 457;
+    this.x = 303; //starting position on the X-axis
+    this.y = 457; //starting position on the Y-axis
+    this.image = 'images/char-boy.png' //the image asset of the player
 }
 
+//method that resets the player's position back to the starting point
 Player.prototype.reset = function () {
     this.x = 303;
     this.y = 457;
 }
 
+//checks to see if player made it to the water, and reset's him
 Player.prototype.win = function () {
     if (this.y < 41) {
         this.reset();
     }
 }
 
+//draws the player
 Player.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    ctx.drawImage(Resources.get(this.image), this.x, this.y);
 }
 
-Player.prototype.update = function() {
-};
 
 
-
+//checks to which arrow key is the user pressing
+//moves the player one block to the corresponding direction of the arrow
+//prevent player from moving outside the border
 Player.prototype.handleInput = function(e) {
     if (e === "left" && this.x >= 101) {
         this.x = this.x  - 101;
@@ -72,22 +77,24 @@ Player.prototype.handleInput = function(e) {
     }
 
 }
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
 
 
+
+//creating 4 instances of the Enemy class
 var enemy1 = new Enemy(-220, 57);
 var enemy2 = new Enemy(-100, 140);
 var enemy3 = new Enemy(-150, 223);
 var enemy4 = new Enemy(-150, 306);
-var allEnemies = [enemy1, enemy2, enemy3, enemy4]// Place all enemy objects in an array called allEnemies
-var player = new Player();// Place the player object in a variable called player
+
+//putting all enemies in an array that's going to be looped through
+var allEnemies = [enemy1, enemy2, enemy3, enemy4]
+
+//creating new instance of Player class
+var player = new Player();
 
 
 
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
+//checks to see if the key that was pressed was an arrow key
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
         37: 'left',
