@@ -21,18 +21,35 @@ Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-var Player = function(x, y) {
+var Player = function() {
+    this.sprite = 'images/char-horn-girl.png'
     this.x = 200;
     this.y = 400;
-    this.image = 'images/char-cat-girl.png'
+}
+
+Player.prototype.reset = function () {
+    this.x = 300;
+    this.y = 400;
+}
+
+Player.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 }
 
 Player.prototype.update = function() {
 };
 
-Player.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.image), this.x, this.y);
-};
+Player.prototype.handleInput = function(e) {
+    if (e === "left") {
+        this.x = this.x  - 100;
+    } else if (e === "right") {
+        this.x = this.x + 100;
+    } else if (e === "up") {
+        this.y = this.y - 100;
+    } else if (e === "down") {
+        this.y = this.y + 100;
+    }
+}
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
