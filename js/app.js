@@ -22,9 +22,9 @@ Enemy.prototype.render = function() {
 };
 
 var Player = function() {
-    this.sprite = 'images/char-horn-girl.png'
-    this.x = 200;
-    this.y = 400;
+    this.sprite = 'images/char-boy.png'
+    this.x = 303;
+    this.y = 457;
 }
 
 Player.prototype.reset = function () {
@@ -34,20 +34,21 @@ Player.prototype.reset = function () {
 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    console.log(this.y);
 }
 
 Player.prototype.update = function() {
 };
 
 Player.prototype.handleInput = function(e) {
-    if (e === "left") {
-        this.x = this.x  - 100;
-    } else if (e === "right") {
-        this.x = this.x + 100;
-    } else if (e === "up") {
-        this.y = this.y - 100;
-    } else if (e === "down") {
-        this.y = this.y + 100;
+    if (e === "left" && this.x >= 101) {
+        this.x = this.x  - 101;
+    } else if (e === "right" && this.x < 606) {
+        this.x = this.x + 101;
+    } else if (e === "up" && this.y > 100) {
+        this.y = this.y - 83;
+    } else if (e === "down" && this.y < 457) {
+        this.y = this.y + 83;
     }
 }
 // Now write your own player class
