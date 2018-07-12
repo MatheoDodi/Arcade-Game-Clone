@@ -97,6 +97,7 @@ var Engine = (function(global) {
         player.win();
     }
 
+
     /* This function initially draws the "game level", it will then call
      * the renderEntities function. Remember, this function is called every
      * game tick (or loop of the game engine) because that's how games work -
@@ -123,6 +124,7 @@ var Engine = (function(global) {
         // Before drawing, clear existing canvas
         ctx.clearRect(0,0,canvas.width,canvas.height)
 
+
         /* Loop through the number of rows and columns we've defined above
          * and, using the rowImages array, draw the correct image for that
          * portion of the "grid"
@@ -141,6 +143,14 @@ var Engine = (function(global) {
         }
 
         renderEntities();
+        renderPlayer();
+        renderLifes();
+        ctx.font = "30px Arial";
+        ctx.fillText(`Level ${currentLevel}`,50,100); 
+    }
+
+    function renderLifes() {
+        player.lifesRender();
     }
 
     /* This function is called by the render function and is called on each game
@@ -154,7 +164,9 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.render();
         });
+    }
 
+    function renderPlayer() {
         player.render();
     }
 
@@ -166,6 +178,7 @@ var Engine = (function(global) {
         // noop
     }
 
+
     /* Go ahead and load all of the images we know we're going to need to
      * draw our game level. Then set init as the callback method, so that when
      * all of these images are properly loaded our game will start.
@@ -176,13 +189,16 @@ var Engine = (function(global) {
         'images/grass-block.png',
         'images/enemy-bug.png',
         'images/char-horn-girl.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/Heart.png'
     ]);
     Resources.onReady(init);
+ 
 
     /* Assign the canvas' context object to the global variable (the window
      * object when run in a browser) so that developers can use it more easily
      * from within their app.js files.
      */
     global.ctx = ctx;
+
 })(this);

@@ -1,8 +1,8 @@
 // constructor function that's going to create the instances of enemies
-var Enemy = function(x, y) {
-    this.x = x; //starting position on the X-axis
+var Enemy = function(y) {
+    this.x = Math.floor(Math.random() * -2000); //starting position on the X-axis
     this.y = y; //starting position on the Y-axis
-    this.speed = Math.floor(Math.random() * 201) + 120; // rng to differentiate the speed between different enemies 
+    this.speed = Math.floor(Math.random() * 201) + difficultySpeed; // rng to differentiate the speed between different enemies 
     this.image = 'images/enemy-bug.png'; //the image asset of the enemy
 };
 
@@ -12,8 +12,8 @@ Enemy.prototype.update = function(dt) {
 
 //if enemy's position on X-axis exceeds the border of the canvas, it is set back to the starting position
     if (this.x > 707) {
-        this.x = -100;
-        this.speed = Math.floor(Math.random() * 201) + 120; //rng to diffentiate the speed of the resetted enemy
+        this.x = Math.floor(Math.random() * -2000);
+        this.speed = Math.floor(Math.random() * 201) + difficultySpeed; //rng to diffentiate the speed of the resetted enemy
     }
 };
 
@@ -40,6 +40,11 @@ var Player = function() {
     this.x = 303; //starting position on the X-axis
     this.y = 457; //starting position on the Y-axis
     this.image = 'images/char-boy.png' //the image asset of the player
+    this.heart = 'images/Heart.png';
+}
+
+Player.prototype.lifesRender = function() {
+    ctx.drawImage(Resources.get(this.heart), 500, 0, 50, 75);
 }
 
 //method that resets the player's position back to the starting point
@@ -52,12 +57,19 @@ Player.prototype.reset = function () {
 Player.prototype.win = function () {
     if (this.y < 41) {
         this.reset();
+        this.level();
     }
 }
 
 //draws the player
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.image), this.x, this.y);
+}
+
+Player.prototype.level = function() {
+    currentLevel += 1;
+    difficultySpeed += 25;
+    console.log(currentLevel);
 }
 
 
@@ -78,19 +90,28 @@ Player.prototype.handleInput = function(e) {
 
 }
 
+var difficultySpeed = 100; //initial speed of the enemies
 
+var currentLevel = 1; //inital level of the player
 
-//creating 4 instances of the Enemy class
-var enemy1 = new Enemy(-220, 57);
-var enemy2 = new Enemy(-100, 140);
-var enemy3 = new Enemy(-150, 223);
-var enemy4 = new Enemy(-150, 306);
+//creating 8 instances of the Enemy class
+var enemy1 = new Enemy(57);
+var enemy2 = new Enemy(140);
+var enemy3 = new Enemy(223);
+var enemy4 = new Enemy(306);
+var enemy5 = new Enemy(57);
+var enemy6 = new Enemy(140);
+var enemy7 = new Enemy(223);
+var enemy8 = new Enemy(306);
+
 
 //putting all enemies in an array that's going to be looped through
-var allEnemies = [enemy1, enemy2, enemy3, enemy4]
+var allEnemies = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6, enemy7, enemy8]
+
 
 //creating new instance of Player class
 var player = new Player();
+
 
 
 
