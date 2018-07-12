@@ -12,7 +12,7 @@
  * This engine makes the canvas' context (ctx) object globally available to make 
  * writing app.js a little simpler to work with.
  */
-
+var animation;
 var Engine = (function(global) {
     /* Predefine the variables we'll be using within this scope,
      * create the canvas element, grab the 2D context for that canvas
@@ -55,7 +55,8 @@ var Engine = (function(global) {
         /* Use the browser's requestAnimationFrame function to call this
          * function again as soon as the browser is able to draw another frame.
          */
-        win.requestAnimationFrame(main);
+        animation = win.requestAnimationFrame(main);
+        reset();
     }
 
     /* This function does some initial setup that should only occur once,
@@ -143,9 +144,8 @@ var Engine = (function(global) {
         renderEntities();
         renderPlayer();
         renderLifes();
-        ctx.font = "30px Arial";
+        ctx.font = "35px VT323";
         ctx.fillText(`Level ${currentLevel}`,0,40);
-        reset(); 
     }
 
     function renderLifes() {
@@ -180,10 +180,28 @@ var Engine = (function(global) {
 
         console.log(allLifes.length)
         if (allLifes.length === 0) {
-            player = new Player();
-            difficultySpeed = 100;
-            currentLevel = 1;
-            allLifes = [life1, life2, life3]
+            win.cancelAnimationFrame(animation);
+            ctx.font = "70px VT323";
+            ctx.strokeStyle = 'white'
+            ctx.fillText(`GAME OVER`,230, 285);
+            ctx.strokeText('GAME OVER', 230, 285);
+
+            setTimeout(function() {
+                ctx.fillText(`PLAY AGAIN?`,208, 350);
+                ctx.strokeText('PLAY AGAIN?', 208, 350);
+                ctx.fillText(`Y / N`,287, 440);
+                ctx.strokeText('Y / N', 287, 440);
+                document.addEventListener('keydown', function(key) {
+                    if (key.keyCode === 89) {
+                        difficultySpeed = 100;
+                        currentLevel = 1;
+                        allLifes = [life1, life2, life3];
+                        main();
+                    } else if (key.keyCode === 78) {
+                        return null;
+                    }
+                })
+            }, 2000)
         }
     }
 
