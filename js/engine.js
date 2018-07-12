@@ -79,7 +79,6 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
     }
 
     /* This is called by the update function and loops through all of the
@@ -146,11 +145,13 @@ var Engine = (function(global) {
         renderPlayer();
         renderLifes();
         ctx.font = "30px Arial";
-        ctx.fillText(`Level ${currentLevel}`,50,100); 
+        ctx.fillText(`Level ${currentLevel}`,0,40); 
     }
 
     function renderLifes() {
-        player.lifesRender();
+        allLifes.forEach(function(life) {
+            life.lifesRender();
+        })
     }
 
     /* This function is called by the render function and is called on each game
@@ -169,6 +170,7 @@ var Engine = (function(global) {
     function renderPlayer() {
         player.render();
     }
+
 
     /* This function does nothing but it could have been a good place to
      * handle game reset states - maybe a new game menu or a game over screen

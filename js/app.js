@@ -1,6 +1,6 @@
 // constructor function that's going to create the instances of enemies
 var Enemy = function(y) {
-    this.x = Math.floor(Math.random() * -2000); //starting position on the X-axis
+    this.x = Math.floor(Math.random() * -1) - 500; //starting position on the X-axis
     this.y = y; //starting position on the Y-axis
     this.speed = Math.floor(Math.random() * 201) + difficultySpeed; // rng to differentiate the speed between different enemies 
     this.image = 'images/enemy-bug.png'; //the image asset of the enemy
@@ -12,7 +12,7 @@ Enemy.prototype.update = function(dt) {
 
 //if enemy's position on X-axis exceeds the border of the canvas, it is set back to the starting position
     if (this.x > 707) {
-        this.x = Math.floor(Math.random() * -2000);
+        this.x = Math.floor(Math.random() * -1) - 500;
         this.speed = Math.floor(Math.random() * 201) + difficultySpeed; //rng to diffentiate the speed of the resetted enemy
     }
 };
@@ -43,9 +43,15 @@ var Player = function() {
     this.heart = 'images/Heart.png';
 }
 
-Player.prototype.lifesRender = function() {
-    ctx.drawImage(Resources.get(this.heart), 500, 0, 50, 75);
+var Life = function(xPosition) {
+    this.heart = 'images/Heart.png';
+    this.xPosition = xPosition;
 }
+
+Life.prototype.lifesRender = function() {
+    ctx.drawImage(Resources.get(this.heart), this.xPosition, -5, 40, 65);
+}
+
 
 //method that resets the player's position back to the starting point
 Player.prototype.reset = function () {
@@ -106,13 +112,17 @@ var enemy8 = new Enemy(306);
 
 
 //putting all enemies in an array that's going to be looped through
-var allEnemies = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6, enemy7, enemy8]
+var allEnemies = [enemy1, enemy2, enemy3, enemy4, enemy5, enemy6, enemy7, enemy8];
 
 
 //creating new instance of Player class
 var player = new Player();
 
+var life1 = new Life(595);
+var life2 = new Life(632);
+var life3 = new Life(669);
 
+var allLifes = [life1, life2, life3];
 
 
 //checks to see if the key that was pressed was an arrow key
