@@ -63,7 +63,6 @@ var Engine = (function(global) {
      * game loop.
      */
     function init() {
-        reset();
         lastTime = Date.now();
         main();
     }
@@ -79,6 +78,7 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
+        player.win();
     }
 
     /* This is called by the update function and loops through all of the
@@ -93,7 +93,6 @@ var Engine = (function(global) {
             enemy.update(dt);
             enemy.collision();
         });
-        player.win();
     }
 
 
@@ -145,7 +144,8 @@ var Engine = (function(global) {
         renderPlayer();
         renderLifes();
         ctx.font = "30px Arial";
-        ctx.fillText(`Level ${currentLevel}`,0,40); 
+        ctx.fillText(`Level ${currentLevel}`,0,40);
+        reset(); 
     }
 
     function renderLifes() {
@@ -177,7 +177,14 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        // noop
+
+        console.log(allLifes.length)
+        if (allLifes.length === 0) {
+            player = new Player();
+            difficultySpeed = 100;
+            currentLevel = 1;
+            allLifes = [life1, life2, life3]
+        }
     }
 
 

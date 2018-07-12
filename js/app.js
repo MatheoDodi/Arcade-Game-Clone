@@ -27,6 +27,7 @@ Enemy.prototype.collision= function() {
     //checks to see if the enemy is inside the player's hitbox
         if (this.x >= leftHitbox && this.x <= rightHitbox && this.y >= upHitbox && this.y <= downHitbox) {
         player.reset(); //reset's the location of the player at the starting point
+        life1.loseOne();
     }
 }
 
@@ -52,6 +53,10 @@ Life.prototype.lifesRender = function() {
     ctx.drawImage(Resources.get(this.heart), this.xPosition, -5, 40, 65);
 }
 
+Life.prototype.loseOne = function() {
+    let lifesCounter = allLifes.length - 1;
+    allLifes.splice(lifesCounter, 1);
+}
 
 //method that resets the player's position back to the starting point
 Player.prototype.reset = function () {
@@ -75,7 +80,6 @@ Player.prototype.render = function() {
 Player.prototype.level = function() {
     currentLevel += 1;
     difficultySpeed += 25;
-    console.log(currentLevel);
 }
 
 
@@ -123,6 +127,7 @@ var life2 = new Life(632);
 var life3 = new Life(669);
 
 var allLifes = [life1, life2, life3];
+
 
 
 //checks to see if the key that was pressed was an arrow key
