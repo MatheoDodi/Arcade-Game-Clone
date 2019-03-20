@@ -1,5 +1,3 @@
-Udacity's Front End Nanodegree
-
 Arcade Game Clone Project (aka Frogger Clone)
 ===============================
 
