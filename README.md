@@ -1,4 +1,4 @@
-Arcade Game Clone Project (aka Frogger Clone)
+Arcade Game Project (aka Frogger Clone)
 ===============================
 
 This is a project from Udacity's Nanodegree program "Front-End Web Developer". The project is based on the arcade game Frogger by Konami 
